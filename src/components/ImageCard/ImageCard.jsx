@@ -2,22 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ImageCard.module.css';
 
-const ImageCard = ({ image }) => {
-  const { urls, alt_description } = image;
-
+const ImageCard = ({ image, onClick }) => {
   return (
     <div className={styles.card}>
-      <img src={urls.small} alt={alt_description || 'Image'} className={styles.image} />
+      <img
+        src={image.urls.small}
+        alt={image.alt_description || 'Image'}
+        className={styles.image}
+        onClick={() => onClick(image)} 
+      />
     </div>
   );
 };
 
 ImageCard.propTypes = {
   image: PropTypes.shape({
-    urls: PropTypes.object.isRequired,
+    urls: PropTypes.shape({
+      small: PropTypes.string.isRequired,
+    }).isRequired,
     alt_description: PropTypes.string,
   }).isRequired,
+  onClick: PropTypes.func.isRequired, 
 };
 
 export default ImageCard;
+
 
